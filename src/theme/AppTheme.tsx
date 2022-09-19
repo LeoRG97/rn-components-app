@@ -8,4 +8,10 @@ export const styles = StyleSheet.create({
   globalMargin: {
     marginHorizontal: 20,
   },
+  switchRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
 });
