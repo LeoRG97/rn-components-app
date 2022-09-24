@@ -20,13 +20,6 @@ const TextInputScreen = () => {
     phone: '',
     isSubscribed: false,
   });
-  // const [formData, setFormData] = useState();
-
-  // const handleChange = (value: string, field: string) => {
-  //   setFormData({ ...formData, [field]: value });
-  // };
-
-  console.log(JSON.stringify(formData, null, 2));
 
   return (
     <KeyboardAvoidingView
