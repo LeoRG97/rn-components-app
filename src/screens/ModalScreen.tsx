@@ -12,11 +12,31 @@ const ModalScreen = () => {
       <Button title="Abrir modal" onPress={() => setIsVisible(true)} />
 
       <Modal visible={isVisible} animationType="fade" transparent>
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
-          <View>
-            {/* contenido del modal */}
-            <HeaderTitle title="Modal open" />
-            <Text>Cuerpo del modal</Text>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              backgroundColor: '#fff',
+              width: 200,
+              height: 200,
+              justifyContent: 'center',
+              alignItems: 'center',
+              shadowOffset: {
+                width: 0,
+                height: 10,
+              },
+              shadowOpacity: 0.25,
+              elevation: 10,
+            }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Modal open</Text>
+            <Text style={{ fontSize: 16, fontWeight: '300', marginBottom: 20 }}>
+              Cuerpo del modal
+            </Text>
             <Button title="Cerrar modal" onPress={() => setIsVisible(false)} />
           </View>
         </View>

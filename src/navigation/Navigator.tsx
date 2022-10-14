@@ -4,6 +4,7 @@ import AlertScreen from '../screens/AlertScreen';
 import Animation101Screen from '../screens/Animation101Screen';
 import Animation102Screen from '../screens/Animation102Screen';
 import HomeScreen from '../screens/HomeScreen';
+import InfiniteScrollScreen from '../screens/InfiniteScrollScreen';
 import ModalScreen from '../screens/ModalScreen';
 import PullToRefreshScreen from '../screens/PullToRefreshScreen';
 import SectionListScreen from '../screens/SectionListScreen';
@@ -33,6 +34,10 @@ const Navigator = () => {
       />
       <Stack.Screen name="SectionListScreen" component={SectionListScreen} />
       <Stack.Screen name="ModalScreen" component={ModalScreen} />
+      <Stack.Screen
+        name="InfiniteScrollScreen"
+        component={InfiniteScrollScreen}
+      />
     </Stack.Navigator>
   );
 };
