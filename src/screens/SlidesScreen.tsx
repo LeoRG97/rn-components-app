@@ -1,12 +1,19 @@
 import {
+  Animated,
   Dimensions,
+  Image,
   ImageSourcePropType,
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React from 'react';
-import Carousel from 'react-native-snap-carousel';
+import React, { useEffect, useRef, useState } from 'react';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useAnimation } from '../hooks/useAnimation';
+import { useNavigation } from '@react-navigation/native';
 
 interface Slide {
   title: string;
@@ -35,8 +42,38 @@ const items: Slide[] = [
 const { width: screenWidth } = Dimensions.get('window');
 
 const SlidesScreen = () => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  // const [isButtonVisible, setIsButtonVisible] = useState(false);
+
+  const isButtonVisible = useRef(false);
+
+  const navigation = useNavigation();
+  const { opacity, fadeIn } = useAnimation();
+
+  useEffect(() => {
+    if (activeSlide < items.length - 1) {
+      return;
+    }
+    fadeIn();
+    isButtonVisible.current = true;
+    // setIsButtonVisible(true);
+  }, [activeSlide, fadeIn]);
+
+  const navigateToMenu = () => {
+    if (!isButtonVisible.current) {
+      return;
+    }
+    navigation.navigate('Home' as any);
+  };
+
   const renderItem = (item: Slide) => {
-    return <Text>{item.desc}</Text>;
+    return (
+      <View style={styles.slide}>
+        <Image source={item.img} style={styles.slideImage} />
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.subtitle}>{item.desc}</Text>
+      </View>
+    );
   };
 
   return (
@@ -47,7 +84,31 @@ const SlidesScreen = () => {
         renderItem={({ item }) => renderItem(item)}
         sliderWidth={screenWidth}
         itemWidth={screenWidth}
+        layout="default"
+        onSnapToItem={index => setActiveSlide(index)}
       />
+      <View style={styles.carouselFooter}>
+        <Pagination
+          dotsLength={items.length}
+          activeDotIndex={activeSlide}
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            backgroundColor: '#5856d6',
+          }}
+        />
+        <Animated.View style={{ opacity }}>
+          <TouchableOpacity
+            // disabled={!isButtonVisible.current}
+            onPress={navigateToMenu}
+            style={styles.button}
+            activeOpacity={0.8}>
+            <Text style={{ fontSize: 25, color: '#fff' }}>Entrar</Text>
+            <Icon name="chevron-forward-outline" color="#fff" size={30} />
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -57,7 +118,41 @@ export default SlidesScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
     paddingTop: 50,
+  },
+  slide: {
+    flex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 40,
+    justifyContent: 'center',
+  },
+  slideImage: {
+    width: 350,
+    height: 400,
+    resizeMode: 'center',
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#5856d6',
+  },
+  subtitle: {
+    fontSize: 16,
+  },
+  carouselFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    alignItems: 'center',
+  },
+  button: {
+    flexDirection: 'row',
+    backgroundColor: '#5856D6',
+    width: 140,
+    height: 50,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
