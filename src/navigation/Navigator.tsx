@@ -8,6 +8,7 @@ import InfiniteScrollScreen from '../screens/InfiniteScrollScreen';
 import ModalScreen from '../screens/ModalScreen';
 import PullToRefreshScreen from '../screens/PullToRefreshScreen';
 import SectionListScreen from '../screens/SectionListScreen';
+import SlidesScreen from '../screens/SlidesScreen';
 import SwitchScreen from '../screens/SwitchScreen';
 import TextInputScreen from '../screens/TextInputScreen';
 
@@ -38,6 +39,7 @@ const Navigator = () => {
         name="InfiniteScrollScreen"
         component={InfiniteScrollScreen}
       />
+      <Stack.Screen name="SlidesScreen" component={SlidesScreen} />
     </Stack.Navigator>
   );
 };
