@@ -51,4 +51,9 @@ export const menuItems: MenuItem[] = [
     icon: 'images-outline',
     component: 'SlidesScreen',
   },
+  {
+    name: 'Theme',
+    icon: 'color-palette-outline',
+    component: 'ThemeScreen',
+  },
 ];
