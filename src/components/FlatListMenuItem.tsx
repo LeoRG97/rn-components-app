@@ -21,7 +21,7 @@ const FlatListMenuItem = ({ menuItem }: Props) => {
       activeOpacity={0.7}>
       <View style={styles.container}>
         <Icon name={icon} size={24} color={colors.primary} />
-        <Text style={styles.itemText}>{name}</Text>
+        <Text style={{ ...styles.itemText, color: colors.text }}>{name}</Text>
 
         <View style={{ flex: 1 }} />
 

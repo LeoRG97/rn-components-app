@@ -9,11 +9,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useAnimation } from '../hooks/useAnimation';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 interface Slide {
   title: string;
@@ -43,6 +44,7 @@ const { width: screenWidth } = Dimensions.get('window');
 
 const SlidesScreen = () => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const { theme: { colors } } = useContext(ThemeContext);
   // const [isButtonVisible, setIsButtonVisible] = useState(false);
 
   const isButtonVisible = useRef(false);
@@ -68,10 +70,10 @@ const SlidesScreen = () => {
 
   const renderItem = (item: Slide) => {
     return (
-      <View style={styles.slide}>
+      <View style={{ ...styles.slide, backgroundColor: colors.background }}>
         <Image source={item.img} style={styles.slideImage} />
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.subtitle}>{item.desc}</Text>
+        <Text style={{ ...styles.title, color: colors.text }}>{item.title}</Text>
+        <Text style={{ ...styles.title, color: colors.text }}>{item.desc}</Text>
       </View>
     );
   };
@@ -95,14 +97,14 @@ const SlidesScreen = () => {
             width: 10,
             height: 10,
             borderRadius: 5,
-            backgroundColor: '#5856d6',
+            backgroundColor: colors.primary,
           }}
         />
         <Animated.View style={{ opacity }}>
           <TouchableOpacity
             // disabled={!isButtonVisible.current}
             onPress={navigateToMenu}
-            style={styles.button}
+            style={{ ...styles.button, backgroundColor: colors.primary }}
             activeOpacity={0.8}>
             <Text style={{ fontSize: 25, color: '#fff' }}>Entrar</Text>
             <Icon name="chevron-forward-outline" color="#fff" size={30} />

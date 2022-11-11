@@ -1,16 +1,19 @@
 /* eslint-disable prettier/prettier */
 import { Animated, Button, StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useAnimation } from '../hooks/useAnimation';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 const Animation101Screen = () => {
 
   const { opacity, position, fadeIn, fadeOut, startMovingPosition } = useAnimation();
+  const { theme: { colors } } = useContext(ThemeContext);
 
   return (
     <View style={styles.container}>
       <Animated.View style={{
         ...styles.purpleBox,
+        backgroundColor: colors.primary,
         opacity,
         transform: [{
           translateY: position,
@@ -21,8 +24,14 @@ const Animation101Screen = () => {
         <Button title="Fade In" onPress={() => {
           fadeIn();
           startMovingPosition(-100);
-        }} />
-        <Button title="Fade Out" onPress={fadeOut} />
+        }}
+          color={colors.primary}
+        />
+        <Button
+          title="Fade Out"
+          onPress={fadeOut}
+          color={colors.primary}
+        />
       </View>
     </View>
   );

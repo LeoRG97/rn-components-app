@@ -6,17 +6,26 @@ import { styles } from '../theme/AppTheme';
 
 const ThemeScreen = () => {
 
-  const { setDarkTheme } = useContext(ThemeContext);
+  const { setDarkTheme, setLightTheme, theme } = useContext(ThemeContext);
+
+  const changeTheme = () => {
+    if (theme.dark) {
+      return setLightTheme();
+    }
+    setDarkTheme();
+  };
+
+  const { colors } = theme;
+
 
   return (
     <View style={styles.globalMargin}>
       <HeaderTitle title="Theme" />
-
       <TouchableOpacity
-        onPress={setDarkTheme}
+        onPress={changeTheme}
         activeOpacity={0.8}
         style={{
-          backgroundColor: '#5856d6',
+          backgroundColor: colors.primary,
           justifyContent: 'center',
           width: 150,
           height: 50,

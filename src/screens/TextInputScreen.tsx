@@ -6,12 +6,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import HeaderTitle from '../components/HeaderTitle';
 import { styles as globalStyles } from '../theme/AppTheme';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useForm } from '../hooks/useForm';
 import CustomSwitch from '../components/CustomSwitch';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 const TextInputScreen = () => {
   const { formData, onChange } = useForm({
@@ -20,6 +21,8 @@ const TextInputScreen = () => {
     phone: '',
     isSubscribed: false,
   });
+
+  const { theme: { colors } } = useContext(ThemeContext);
 
   return (
     <KeyboardAvoidingView
@@ -30,7 +33,7 @@ const TextInputScreen = () => {
           <HeaderTitle title="TextInputs" />
 
           <TextInput
-            style={styles.inputStyle}
+            style={{ ...styles.inputStyle, color: colors.text, borderColor: colors.border }}
             placeholder="Ingrese su nombre"
             autoCorrect={false}
             autoCapitalize="words"
@@ -38,7 +41,7 @@ const TextInputScreen = () => {
           />
 
           <TextInput
-            style={styles.inputStyle}
+            style={{ ...styles.inputStyle, color: colors.text, borderColor: colors.border }}
             placeholder="Ingrese su email"
             autoCapitalize="none"
             onChangeText={val => onChange(val, 'email')}
@@ -46,14 +49,14 @@ const TextInputScreen = () => {
           />
 
           <TextInput
-            style={styles.inputStyle}
+            style={{ ...styles.inputStyle, color: colors.text, borderColor: colors.border }}
             placeholder="Ingrese su teléfono"
             onChangeText={val => onChange(val, 'phone')}
             keyboardType="numeric"
           />
 
           <View style={globalStyles.switchRow}>
-            <Text>Subscribirme</Text>
+            <Text style={{ color: colors.text }}>Subscribirme</Text>
 
             <CustomSwitch
               isOn={formData.isSubscribed}
